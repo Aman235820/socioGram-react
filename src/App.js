@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import UserHomePage from './components/UserHomePage';
+import Login from './components/Login';
+import AuthGuard from './guards/AuthGuard';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+   BrowserRouter,
+   Routes,
+   Route, Navigate
+} from "react-router-dom";
+import Base from './components/basic/Base';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   return (
+      <>
+         <BrowserRouter>
+            <Base>
+               <Routes>
+                  <Route path="/" element={<Navigate to="/login" />}></Route>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/userHome" element={<AuthGuard><UserHomePage /></AuthGuard>} />
+               </Routes>
+            </Base>
+         </BrowserRouter>
+      </>
+   );
 }
 
 export default App;
