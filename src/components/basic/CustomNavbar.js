@@ -64,7 +64,7 @@ export default function CustomNavbar(props) {
 
                         <Nav className="me-auto" navbar>
                             <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
+                                <NavLink  tag = {ReactLink} to="/components" >Components</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={ReactLink} to="/login">
@@ -76,10 +76,10 @@ export default function CustomNavbar(props) {
                                     More
                                 </DropdownToggle>
                                 <DropdownMenu end>
-                                    <DropdownItem>Option 1</DropdownItem>
-                                    <DropdownItem>Option 2</DropdownItem>
+                                    <DropdownItem>Services</DropdownItem>
+                                    <DropdownItem>Github</DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem>Reset</DropdownItem>
+                                    <DropdownItem>Logout</DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>

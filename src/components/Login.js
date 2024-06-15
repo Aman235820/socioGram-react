@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 import AuthContext from "../guards/AuthProvider";
 import { loginApi } from "../services/AuthService";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { userLogin, userLogout } from "../redux/slices/AuthSlice";
 
@@ -67,27 +68,7 @@ export default function Login() {
     return (
         <>
 
-            {/* <div className="container border w-25 p-3">
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Username</label>
-                        <input type="email" defaultValue={"aman@gmail"} onChange={handleUsername} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-                    </div>
-                    <br />
-                    <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
-                        <input type="password" defaultValue={"123"} onChange={handlePassword} className="form-control" id="exampleInputPassword1" placeholder="Password" />
-                    </div>
-                    <br />
-                    {isError && <span>Enter correct username or password !!</span>}
-                    <br />
-                    <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
-                </form>
-            </div> */}
-
-
-
-            <div className="login-page align bg-dark">
+            <div className="login-page align bg-dark md-5">
 
                 <div className="grid">
 
@@ -109,7 +90,7 @@ export default function Login() {
 
                     </form>
 
-                    <p className="text-center text-white p-3 m-0">Not a member? <span>Sign up now</span> <svg className="icon"><use href="#arrow-right"></use></svg></p>
+                    <p className="text-center text-white p-3 m-0">Not a member? <Link to={"/register"}><span>Sign up now</span></Link><svg className="icon"><use href="#arrow-right"></use></svg></p>
 
                 </div>
 

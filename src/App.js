@@ -1,6 +1,7 @@
 import './App.css';
 import UserHomePage from './components/UserHomePage';
 import Login from './components/Login';
+import Register from './components/Register';
 import AuthGuard from './guards/AuthGuard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -18,6 +19,7 @@ function App() {
                <Routes>
                   <Route path="/" element={<Navigate to="/login" />}></Route>
                   <Route path="/login" element={<Login />} />
+                  <Route path="/register" element = {<Register/>}></Route>
                   <Route path="/userHome" element={<AuthGuard><UserHomePage /></AuthGuard>} />
                </Routes>
             </Base>
