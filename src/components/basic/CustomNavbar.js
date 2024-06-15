@@ -1,4 +1,5 @@
-import { NavLink as ReactLink } from 'react-router-dom';
+import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import {
     Collapse,
@@ -12,15 +13,39 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText,
+    Button
 } from 'reactstrap';
+import AuthContext from '../../guards/AuthProvider';
+import { useDispatch } from 'react-redux';
+import { userLogout } from '../../redux/slices/AuthSlice';
 
 export default function CustomNavbar(props) {
-    
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
 
+    const [isFormPage , setFormPage] = useState(true);
+
+    const {loggedInUserId} = useContext(AuthContext);
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+          if(props.myLocation ==='login' || props.myLocation ==='register'){
+            setFormPage(true);
+          }
+          else{
+            setFormPage(false);
+          }
+    }, [props.myLocation]);
+
+    const handleLogout = ()=>{
+          dispatch(userLogout(loggedInUserId));
+          navigate("/");
+    }
     
 
     return (
@@ -35,7 +60,7 @@ export default function CustomNavbar(props) {
                     <NavbarBrand tag={ReactLink} to="/">socioGram</NavbarBrand>
                     <NavbarToggler onClick={toggle} />
 
-                    <Collapse isOpen={isOpen} navbar>
+                    { !isFormPage && <Collapse isOpen={isOpen} navbar>
 
                         <Nav className="me-auto" navbar>
                             <NavItem>
@@ -58,8 +83,17 @@ export default function CustomNavbar(props) {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
-                        <NavbarText>Simple Text</NavbarText>
-                    </Collapse>
+                        <div>
+                            <Button
+                                active
+                                color="light"
+                                size=""
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </Button>
+                        </div>
+                    </Collapse>}
                 </Navbar>
             </div>
         </>

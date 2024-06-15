@@ -3,7 +3,7 @@ import AuthContext from "../guards/AuthProvider";
 import { loginApi } from "../services/AuthService";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userLogin } from "../redux/slices/AuthSlice";
+import { userLogin, userLogout } from "../redux/slices/AuthSlice";
 
 export default function Login() {
 
@@ -45,6 +45,14 @@ export default function Login() {
             dispatch(userLogin(response.data));
             setLoggedInUserId(response.data.id);
             navigate("/userHome");
+
+            const timer = 4.5 * 60 * 60 * 1000;
+
+            setTimeout(() => {
+                dispatch(userLogout(response.data.id));
+                navigate("/");
+            }, timer);
+
         }
         else {
             setError(true);

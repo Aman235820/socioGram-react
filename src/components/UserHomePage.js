@@ -9,7 +9,7 @@ export default function UserHomePage(){
     const user = useSelector((state)=>
           (state.userDetails).userLoginCredentials[loggedInUserId]);
 
-    console.log("current user" , user);
+    //console.log("current user" , user);
 
     return(
         <>
