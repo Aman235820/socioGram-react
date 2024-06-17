@@ -5,14 +5,15 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { userLogin, userLogout } from "../redux/slices/AuthSlice";
+import Cookies from "js-cookie";
 
 export default function Login() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { setStatus, setLoggedInUserId } = useContext(AuthContext);
-
+    const { setStatus } = useContext(AuthContext);
+    const [loader, setLoader] = useState(false);
 
     const [loginDetails, setLoginDetails] = useState({
         username: "aman@gmail",
@@ -20,11 +21,6 @@ export default function Login() {
     });
 
     const [isError, setError] = useState(false);
-
-    // useEffect(()=>{
-    //     setStatus(false);
-    //     console.log(status);
-    // },[]);
 
     const handleUsername = (e) => {
         setLoginDetails(prev => {
@@ -40,13 +36,13 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoader(true);
         const response = await loginApi(loginDetails);
         if (!response.hasError) {
             setStatus(true);
             dispatch(userLogin(response.data));
-            setLoggedInUserId(response.data.id);
+            Cookies.set('user' , JSON.stringify(response.data) , {expires : 1});
             navigate("/userHome");
-
             const timer = 4.5 * 60 * 60 * 1000;
 
             setTimeout(() => {
@@ -59,11 +55,8 @@ export default function Login() {
             setError(true);
             setStatus(false);
         }
+        setLoader(false);
     }
-
-
-
-
 
     return (
         <>
@@ -85,7 +78,7 @@ export default function Login() {
                         </div>
                         {isError && <span className="text-center text-white p-3 m-0" >Enter correct username or password !!</span>}
                         <div className="form__field mt-4">
-                            <input type="submit" value="Sign In" onClick={handleSubmit} />
+                            <input type="submit" value={loader ? 'Loading...' : 'Sign In'} disabled={loader} onClick={handleSubmit} />
                         </div>
 
                     </form>
@@ -100,7 +93,6 @@ export default function Login() {
                     <symbol id="user" viewBox="0 0 1792 1792"><path d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-320-893q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z" /></symbol>
                 </svg>
             </div>
-
 
         </>
     );

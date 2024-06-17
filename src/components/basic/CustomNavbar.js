@@ -1,6 +1,7 @@
 import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
 import {
     Collapse,
     Navbar,
@@ -27,7 +28,7 @@ export default function CustomNavbar(props) {
 
     const [isFormPage , setFormPage] = useState(true);
 
-    const {loggedInUserId} = useContext(AuthContext);
+    const user = JSON.parse(Cookies.get('user'));
 
     const dispatch = useDispatch();
 
@@ -43,7 +44,7 @@ export default function CustomNavbar(props) {
     }, [props.myLocation]);
 
     const handleLogout = ()=>{
-          dispatch(userLogout(loggedInUserId));
+          dispatch(userLogout(user.id));
           navigate("/");
     }
     
