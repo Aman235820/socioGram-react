@@ -48,7 +48,7 @@ export default function Login() {
             setTimeout(() => {
                 dispatch(userLogout(response.data.id));
                 navigate("/");
-            }, 5000);
+            }, timer);
 
         }
         else {
