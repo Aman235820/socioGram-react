@@ -7,7 +7,7 @@ const reduxSessionKey = 'YEGRFJHBVC';
 const loadState = () => {
     try {
         const serializedState = secureLocalStorage.getItem(reduxSessionKey);
-        if (serializedState == null) {
+        if (serializedState == null || serializedState === 'undefined') {
             return undefined;
         }
         return JSON.parse(decodeURIComponent(serializedState));
@@ -26,6 +26,7 @@ const saveState = (state) => {
     }
 }
 
+const preloadedState = loadState();
 
 const store = configureStore({
     reducer: {
@@ -34,7 +35,6 @@ const store = configureStore({
     preloadedState: preloadedState
 });
 
-const preloadedState = loadState();
 
 store.subscribe(() => {
     saveState(store.getState());

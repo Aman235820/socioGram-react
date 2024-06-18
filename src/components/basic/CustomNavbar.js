@@ -1,4 +1,4 @@
-import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
+import { NavLink as ReactLink, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
@@ -28,14 +28,18 @@ export default function CustomNavbar(props) {
 
     const [isFormPage , setFormPage] = useState(true);
 
-    const user = JSON.parse(Cookies.get('user'));
+    const [user , setUser] =   useState(null);
 
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-          if(props.myLocation ==='login' || props.myLocation ==='register'){
+        const userCookie = Cookies.get('user');
+        if (userCookie) {
+            setUser(JSON.parse(Cookies.get('user')));
+        }
+        if(props.myLocation ==='login' || props.myLocation ==='register'){
             setFormPage(true);
           }
           else{

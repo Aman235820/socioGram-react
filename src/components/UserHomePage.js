@@ -8,6 +8,7 @@ export default function UserHomePage() {
 
     const user = JSON.parse(Cookies.get('user'));
 
+
     return (
         <>
             <br /><br />
