@@ -199,8 +199,11 @@ input[type='submit'] {
     background-color: #d44179;
 }
 
-.login-page p span {
+.login-page a {
     color: #ea4c88;
+    text-decoration: none;
+    padding-right: 4px;
+    text-transform: capitalize;
 }
 
 /* modules/text.css */

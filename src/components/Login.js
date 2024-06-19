@@ -76,7 +76,7 @@ export default function Login() {
                             <label htmlFor="login__password"><svg className="icon"><use href="#lock"></use></svg><span className="hidden">Password</span></label>
                             <input id="login__password" type="password" defaultValue={"123"} onChange={handlePassword} name="password" className="form__input" placeholder="Password" required />
                         </div>
-                        {isError && <span className="text-center text-white p-3 m-0" >Enter correct username or password !!</span>}
+                        {isError && <span className="text-center text-danger p-1" >Enter correct username or password !!</span>}
                         <div className="form__field mt-4">
                             <input type="submit" value={loader ? 'Loading...' : 'Sign In'} disabled={loader} onClick={handleSubmit} />
                         </div>
