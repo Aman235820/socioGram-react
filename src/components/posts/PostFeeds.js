@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Post from "./Post";
 import './PostFeeds.css';
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function PostFeeds() {
 
@@ -11,29 +12,24 @@ function PostFeeds() {
 
   const [pagination, setPagination] = useState({
     pageNumber: 0,
-    pageSize: 2
+    pageSize: 1
   });
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['posts', pagination],
-    queryFn: GetAllPosts                              // Do not invoke the function here          //fetching the API data through an asynchronous call
+    queryFn: GetAllPosts ,                             // Do not invoke the function here          //fetching the API data through an asynchronous call
+    keepPreviousData: true  // Keeps previous data while fetching new data
   })
 
   useEffect(() => {
-    if (data && data.data && data.data.content) {
-      setPosts(data.data.content);
-      console.log(data.data)
+    if (data && data.data && Array.isArray(data.data.content)) {
+      setPosts(prevPosts => [...prevPosts, ...data.data.content]);
     }
   }, [data]);
 
-  const changePage = (page)=>{
-    
-        if(page < 0 || page === data.data.totalPages){
-           return;
-        }
-
+  const changePage = ()=>{
         setPagination(prev => {
-             return({...prev , pageNumber : page})
+             return({...prev , pageNumber : data.data.pageNumber + 1}) 
         })
   }
 
@@ -41,13 +37,24 @@ function PostFeeds() {
     <>
       <div className='timeline bg-dark'>
         <div className='timeline_left bg-dark'>
-          {isLoading ? (
+          {isLoading && posts.length === 0 ? (
             <p>Loading....</p>
           ) : (
             <div className='timeline_post bg-dark'>
-              {posts.length > 0 ? posts.map((post) => (
+              <InfiniteScroll
+                   dataLength={posts.length}
+                   next = {changePage}
+                   hasMore = {data ? !data.data.lastPage : false} 
+                   loader={<h4>Loading...</h4>}
+                   endMessage={
+                    <p style={{ textAlign: 'center' }}>
+                      <b>Yay! You have seen all the posts !!</b>
+                    </p>
+                  }
+              >
+              {posts.length > 0 ? posts.map((post , index) => (
                 <Post
-                  key={post.postId}
+                  key={`${post.postId}-${index}`}
                   user={post.user}
                   image={post.image}
                   content={post.content}
@@ -57,10 +64,11 @@ function PostFeeds() {
               )) : (
                 <p>No posts available !!</p>
               )}
+              </InfiniteScroll>
             </div>
           )}
         </div>
-        { data && <Pagination size="sm">
+        {/* { data && <Pagination size="sm">
           <PaginationItem disabled = {data.data.pageNumber === 0} onClick={()=>changePage(data.data.pageNumber-1)}>
             <PaginationLink
               previous
@@ -80,7 +88,7 @@ function PostFeeds() {
               next
             />
           </PaginationItem>
-        </Pagination>}
+        </Pagination>} */}
       </div>
 
     </>
