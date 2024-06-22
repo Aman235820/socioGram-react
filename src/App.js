@@ -1,5 +1,5 @@
 import './App.css';
-import UserHomePage from './components/UserHomePage';
+import UserHomePage from './components/HomePage/UserHomePage';
 import Login from './components/Login';
 import Register from './components/Register';
 import AuthGuard from './guards/AuthGuard';

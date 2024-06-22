@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { useSelector } from "react-redux";
-import AuthContext from "../guards/AuthProvider";
-import Sidenav from "./navigation/Sidenav";
+import Sidenav from "../navigation/Sidenav";
 import Cookies from "js-cookie";
+import PostFeeds from "../posts/PostFeeds";
 
 export default function UserHomePage() {
+
+
 
     const user = JSON.parse(Cookies.get('user'));
 
@@ -12,7 +12,11 @@ export default function UserHomePage() {
     return (
         <>
             <br /><br />
-            <Sidenav/>
+            <Sidenav />
+
+            <PostFeeds/>
+
+           
         </>
 
     );

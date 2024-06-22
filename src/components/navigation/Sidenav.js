@@ -4,7 +4,7 @@ import './Sidenav.css';
 
 function Sidenav() {
   return (
-    <div className='sidenav'>
+    <div className='sidenav bg-dark'>
            
       <div className='sidenav_buttons'>
         <button className='sidenav_button'>
