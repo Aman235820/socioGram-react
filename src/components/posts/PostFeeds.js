@@ -3,7 +3,6 @@ import { GetAllPosts } from "../../services/PostsService";
 import { useQuery } from "@tanstack/react-query";
 import Post from "./Post";
 import './PostFeeds.css';
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function PostFeeds() {

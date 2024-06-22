@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 export default function AuthGuard({ children }) {
 
 
-    const { status , setStatus} = useContext(AuthContext)
+    const { status , setStatus , setUser} = useContext(AuthContext)
     const navigate = useNavigate();
     
     useEffect(()=>{
@@ -22,8 +22,10 @@ export default function AuthGuard({ children }) {
         const userCookie =  Cookies.get('user');
         try {
             if (userCookie) {
-                if(userCredentials.hasOwnProperty(JSON.parse(Cookies.get('user')).id)){
+                const userDetails = JSON.parse(Cookies.get('user'));
+                if(userCredentials.hasOwnProperty(userDetails.id)){
                     setStatus(true);
+                    setUser(userDetails);
                     return;
                 }
                 else{

@@ -2,7 +2,7 @@ import React from 'react'
 import './Sidenav.css';
 
 
-function Sidenav() {
+function Sidenav(props) {
   return (
     <div className='sidenav bg-dark'>
            
@@ -19,8 +19,8 @@ function Sidenav() {
           <span>Messages</span>
         </button>
 
-        <button className='sidenav_button'>
-          <span>Create</span>
+        <button className='sidenav_button' onClick={()=>{props.openCreatePostModal()}}>
+          <span>Create Post</span>
         </button>
       </div>
 
