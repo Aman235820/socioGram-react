@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Post from "./Post";
 import './PostFeeds.css';
 import InfiniteScroll from "react-infinite-scroll-component";
+import { ToastContainer, toast } from "react-toastify";
 
 function PostFeeds() {
 
@@ -11,7 +12,7 @@ function PostFeeds() {
 
   const [pagination, setPagination] = useState({
     pageNumber: 0,
-    pageSize: 1
+    pageSize: 2
   });
 
   const { data, isLoading, isError, error } = useQuery({
@@ -26,6 +27,10 @@ function PostFeeds() {
     }
   }, [data]);
 
+  if(isError){
+        toast("Error : " , error);
+  }
+
   const changePage = ()=>{
         setPagination(prev => {
              return({...prev , pageNumber : data.data.pageNumber + 1}) 
@@ -35,6 +40,7 @@ function PostFeeds() {
   return (
     <>
       <div className='timeline bg-dark'>
+        <ToastContainer/>
         <div className='timeline_left bg-dark'>
           {isLoading && posts.length === 0 ? (
             <p>Loading....</p>

@@ -20,7 +20,8 @@ export default function Post(props) {
             <img src={`${baseurl}/${props.image}`} alt="Post" />
           </div>
         )}
-        <p style={{color:'white'}}>{props.content}</p>
+        <br/>
+         <b style={{ color: 'white' }} >{props.user.name} : </b><div style={{ color: 'white' }} dangerouslySetInnerHTML={{ __html: props.content }} />
       </div>
       <div className='post_footerIcons'>
         {/* Add icons or other footer content here */}
