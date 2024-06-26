@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import CustomNavbar from "./CustomNavbar";
+import CustomNavbar from "./navigation/CustomNavbar";
 import { useEffect, useState } from "react";
 
 export default function Base ({children}){

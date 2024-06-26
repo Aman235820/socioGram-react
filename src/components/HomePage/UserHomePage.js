@@ -1,9 +1,7 @@
-import Sidenav from "../navigation/Sidenav";
-import Cookies from "js-cookie";
+import Sidenav from "../basic/navigation/Sidenav";
 import PostFeeds from "../posts/PostFeeds";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import CreatePostModal from "../posts/CreatePostModal";
-import AuthContext from "../../guards/AuthProvider";
 
 export default function UserHomePage() {
 
@@ -23,8 +21,8 @@ export default function UserHomePage() {
             <br /><br />
             <Sidenav openCreatePostModal={openCreatePostModal} />
 
-            {showPostModal && <CreatePostModal
-                closeCreatePostModal={closeCreatePostModal} />
+            {
+                showPostModal && <CreatePostModal closeCreatePostModal={closeCreatePostModal} />
             }
             <PostFeeds />
 

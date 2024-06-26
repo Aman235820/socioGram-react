@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useMemo} from "react";
 import { GetAllPosts } from "../../services/PostsService";
 import { useQuery } from "@tanstack/react-query";
 import Post from "./Post";
 import './PostFeeds.css';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function PostFeeds() {
 
@@ -27,9 +28,11 @@ function PostFeeds() {
     }
   }, [data]);
 
-  if(isError){
-        toast("Error : " , error);
-  }
+  useMemo(()=>{                                               //used to memoize (cache) the result of a function or an expression. This can improve performance by preventing unnecessary calculations.
+    if(isError){
+          toast("Error : ",error);
+    }
+  } , [isError]);
 
   const changePage = ()=>{
         setPagination(prev => {

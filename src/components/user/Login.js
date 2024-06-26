@@ -1,10 +1,10 @@
 import { useDispatch } from "react-redux";
-import AuthContext from "../guards/AuthProvider";
-import { loginApi } from "../services/AuthService";
+import AuthContext from "../../guards/AuthProvider";
+import { loginApi } from "../../services/AuthService";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { userLogin, userLogout } from "../redux/slices/AuthSlice";
+import { userLogin, userLogout } from "../../redux/slices/AuthSlice";
 import Cookies from "js-cookie";
 
 export default function Login() {

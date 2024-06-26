@@ -60,8 +60,7 @@ function CreatePostModal(props) {
             <div className="modal-wrapper" >
                 <div className="modal-container" ref={closeModalRef}>
                     <img src='cross.png' alt='img' height="15px" width="15px" onClick={() => { props.closeCreatePostModal() }} style={{ float: 'right', transition: 'transform 0.3s ease-in-out', cursor: 'pointer' }} /><br />
-                    <h2>Got something on your mind? Share a post with us!</h2>
-                    <br />
+                    <h4 className='mb-4'>Got something on your mind? Share a post with us!</h4>
                     <Form>
 
                         <FormGroup row>

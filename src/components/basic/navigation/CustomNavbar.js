@@ -1,5 +1,5 @@
-import { NavLink as ReactLink, useLocation, useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 import {
@@ -16,9 +16,8 @@ import {
     DropdownItem,
     Button
 } from 'reactstrap';
-import AuthContext from '../../guards/AuthProvider';
 import { useDispatch } from 'react-redux';
-import { userLogout } from '../../redux/slices/AuthSlice';
+import { userLogout } from '../../../redux/slices/AuthSlice';
 
 export default function CustomNavbar(props) {
 

@@ -27,10 +27,17 @@
   }
   
   .post_headerAuthor > span {
-    color: grey;
+    /* color: grey; */
     font-size: 15px;
+    flex: 1;
+
+    &.text-align-right{
+      text-align: right;
+    }
+    
+
   }
-  
+
   .post_image img {
     width: 100%;
     border-radius: 6px;
@@ -61,5 +68,9 @@
   
   .post_content {
     margin-top: 10px;
+  }
+
+  .caption{
+    gap: 8px;
   }
   

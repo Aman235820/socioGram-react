@@ -7,21 +7,20 @@ export default function Post(props) {
 
     return (
         <>
-            <div className='post bg-dark'>
-      <div className='post_header'>
-        <div className='post_headerAuthor'>
-          <span className='username'>{props.user.name}</span>
-          <span>{new Date(props.postDate).toLocaleString()}</span>
+            <div className='post bg-transparent'>
+      <div className='post_header m-0'>
+        <div className='post_headerAuthor text-white d-flex align-items-center w-100'>
+          <span className='username flex-1'>{props.user.name}</span>
+          <span className='text-align-right'>{new Date(props.postDate).toLocaleString()}</span>
         </div>
       </div>
-      <div className='post_content'>
+      <div className='post_content m-0'>
         {props.image && (
           <div className='post_image'>
             <img src={`${baseurl}/${props.image}`} alt="Post" />
           </div>
         )}
-        <br/>
-         <b style={{ color: 'white' }} >{props.user.name} : </b><div style={{ color: 'white' }} dangerouslySetInnerHTML={{ __html: props.content }} />
+         <div className='caption d-flex text-white mt-2'><b>{props.user.name} : </b><div dangerouslySetInnerHTML={{ __html: props.content }} /></div>
       </div>
       <div className='post_footerIcons'>
         {/* Add icons or other footer content here */}

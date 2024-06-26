@@ -1,8 +1,8 @@
 import './App.css';
 import UserHomePage from './components/HomePage/UserHomePage';
-import Login from './components/Login';
-import Register from './components/Register';
 import AuthGuard from './guards/AuthGuard';
+import Login from './components/user/Login';
+import Register from './components/user/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
    BrowserRouter,
@@ -10,6 +10,7 @@ import {
    Route, Navigate
 } from "react-router-dom";
 import Base from './components/basic/Base';
+import UserProfile from './components/user/UserProfile';
 
 function App() {
    return (
@@ -19,8 +20,9 @@ function App() {
                <Routes>
                   <Route path="/" element={<Navigate to="/login" />}></Route>
                   <Route path="/login" element={<Login />} />
-                  <Route path="/register" element = {<Register/>}></Route>
+                  <Route path="/register" element={<Register />}></Route>
                   <Route path="/userHome" element={<AuthGuard><UserHomePage /></AuthGuard>} />
+                  <Route path="/userProfile" element={<AuthGuard><UserProfile /></AuthGuard>} />
                </Routes>
             </Base>
          </BrowserRouter>
