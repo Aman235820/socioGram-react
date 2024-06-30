@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const baseurl = 'http://localhost:6060/socialMedia';
+const baseurl = 'http://localhost:6060/socialMedia/auth';
 
 const loginApi = async (data) => {
-    const endpoint = `${baseurl}/auth/login`;
+    const endpoint = `${baseurl}/login`;
     return await axios.post(endpoint, data).then((response) => {
         if (response && response.data) {
             return response.data;
@@ -12,7 +12,7 @@ const loginApi = async (data) => {
 }
 
 const createUser = async (data)=>{
-    const endpoint = `${baseurl}/auth/register`;
+    const endpoint = `${baseurl}/register`;
     return axios.post(endpoint , data).then((response)=>{
            if(response && response.data){
                 return response.data;

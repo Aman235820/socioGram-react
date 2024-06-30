@@ -1,22 +1,26 @@
 import React from 'react'
 import './Sidenav.css';
+import { useNavigate } from 'react-router-dom';
 
 
 function Sidenav(props) {
+
+  const navigate = useNavigate();
+
   return (
     <div className='sidenav bg-dark'>
            
       <div className='sidenav_buttons'>
-        <button className='sidenav_button'>
+        <button className='sidenav_button' onClick={()=>{navigate('/userHome')}}>
           <span>Home</span>
         </button>
 
-        <button className='sidenav_button'>
-          <span>Explore</span>
+        <button className='sidenav_button' onClick={()=>{navigate('/allUsers')}}>
+          <span>People</span>
         </button>
 
-        <button className='sidenav_button'>
-          <span>Messages</span>
+        <button className='sidenav_button' onClick={()=>{navigate('/userProfile')}}>
+          <span>Profile</span>
         </button>
 
         <button className='sidenav_button' onClick={()=>{props.openCreatePostModal()}}>

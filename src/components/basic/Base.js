@@ -14,7 +14,7 @@ export default function Base ({children}){
 
        return(
         <>
-           <div className="social-media container-fluid p-0 m-0">
+           <div className="social-media container-fluid p-0 m-0 bg-dark">
                <CustomNavbar myLocation = {myLocation}/>
                {children}
            </div>

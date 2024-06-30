@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Base from './components/basic/Base';
 import UserProfile from './components/user/UserProfile';
+import AllUsers from './components/user/AllUsers';
 
 function App() {
    return (
@@ -23,6 +24,7 @@ function App() {
                   <Route path="/register" element={<Register />}></Route>
                   <Route path="/userHome" element={<AuthGuard><UserHomePage /></AuthGuard>} />
                   <Route path="/userProfile" element={<AuthGuard><UserProfile /></AuthGuard>} />
+                  <Route path="/allUsers" element={<AuthGuard><AllUsers /></AuthGuard>} />
                </Routes>
             </Base>
          </BrowserRouter>

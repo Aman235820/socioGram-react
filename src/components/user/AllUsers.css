@@ -1,0 +1,17 @@
+.user-card {
+    background-color: #000;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+  .user-card img {
+    border-radius: 50%;
+    width: 7rem;
+    height: 7rem;
+  }
+  .user-card .follow-btn {
+    background-color: #6f42c1;
+    border: none;
+    color: #fff;
+  }
