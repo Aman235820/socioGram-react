@@ -22,7 +22,7 @@ const AllUsers = () => {
   useEffect(() => {
     if (data && data.data && Array.isArray(data.data)) {
       setAllUsers(prev => {
-        return ([...prev, ...data.data ])
+        return ([...prev, ...data.data])
       })
     }
   }, [data]);
@@ -51,7 +51,7 @@ const AllUsers = () => {
                       <img src={`https://cloud.appwrite.io/v1/avatars/initials?name=${item.name}&amp;project=65c8d4500c7cf523e70d` || "profile-placeholder.svg"} alt="profilePic" className="img-fluid mb-3" />
                       <h4>{item.name}</h4>
                       <p className="text-white-50">@{item.email}</p>
-                      <button className="btn follow-btn" onClick={()=>{navigate('/userProfile' , {state : item.id})}}>View Profile</button>
+                      <button className="btn follow-btn" onClick={() => { navigate('/userProfile', { state: item.id }) }}>View Profile</button>
                     </div>
                   </div>
                 )

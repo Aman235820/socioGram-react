@@ -42,7 +42,7 @@ function PostFeeds() {
 
   return (
     <>
-      <div className='timeline bg-dark'>
+      <div className='timeline bg-dark text-white'>
         <ToastContainer/>
         <div className='timeline_left bg-dark'>
           {isLoading && posts.length === 0 ? (
@@ -76,27 +76,6 @@ function PostFeeds() {
             </div>
           )}
         </div>
-        {/* { data && <Pagination size="sm">
-          <PaginationItem disabled = {data.data.pageNumber === 0} onClick={()=>changePage(data.data.pageNumber-1)}>
-            <PaginationLink
-              previous
-            />
-          </PaginationItem>
-          {
-          [...Array(data.data.totalPages)].map((_, index) => (
-            <PaginationItem active = {index === data.data.pageNumber} onClick={()=>changePage(index)}  key={index}>
-              <PaginationLink>
-                {index+1}
-              </PaginationLink>
-            </PaginationItem>
-          ))
-          }
-          <PaginationItem disabled = {data.data.lastPage} onClick={()=>changePage(data.data.pageNumber+1)}>
-            <PaginationLink
-              next
-            />
-          </PaginationItem>
-        </Pagination>} */}
       </div>
 
     </>

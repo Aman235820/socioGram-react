@@ -30,7 +30,7 @@ function UserProfile() {
   });
 
   const { data, isLoading, error, isError } = useQuery({
-    queryKey: ['getUserPosts', user, pagination],
+    queryKey: ['getUserPosts', profile.id, pagination],
     queryFn: GetPostsByUser,
     keepPreviousData : true
   })
@@ -51,7 +51,7 @@ function UserProfile() {
     if (data && data.data && Array.isArray(data.data.content)) {
       setPosts(data.data.content);
     }
-  }, [data]);
+  }, [data , location.state , user]);
 
   const changePage = (pgNum) => {
     if(pgNum < 0 || pgNum >= data.data.totalPages){

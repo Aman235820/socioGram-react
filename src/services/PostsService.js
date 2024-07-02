@@ -35,8 +35,8 @@ const CreatePost = async (data) => {
 }
 
 const GetPostsByUser = async ({ queryKey }) => {
-     const [_key, user, pagination] = queryKey;
-     const endpoint = `${baseurl}/user/${user.id}/getPostsByUser`;
+     const [_key, id, pagination] = queryKey;
+     const endpoint = `${baseurl}/user/${id}/getPostsByUser`;
      return await axios.get(endpoint, {
           params: {
                pageNumber: pagination.pageNumber,
