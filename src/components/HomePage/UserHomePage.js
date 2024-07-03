@@ -18,15 +18,18 @@ export default function UserHomePage() {
 
     return (
         <>
-            <br /><br />
-            <Sidenav openCreatePostModal={openCreatePostModal} />
+            <div className="row">
+                <div className="col-3 main-menu">
+                    <Sidenav openCreatePostModal={openCreatePostModal} />
+                </div>
 
-            {
-                showPostModal && <CreatePostModal closeCreatePostModal={closeCreatePostModal} />
-            }
-            <PostFeeds />
-
-
+                <div className="col-9">
+                    {
+                        showPostModal && <CreatePostModal closeCreatePostModal={closeCreatePostModal} />
+                    }
+                    <PostFeeds />
+                </div>
+            </div>
         </>
 
     );

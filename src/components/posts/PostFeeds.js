@@ -42,7 +42,7 @@ function PostFeeds() {
 
   return (
     <>
-      <div className='timeline bg-dark text-white'>
+      <div className='timeline bg-dark text-white mt-5'>
         <ToastContainer/>
         <div className='timeline_left bg-dark'>
           {isLoading && posts.length === 0 ? (
@@ -63,6 +63,7 @@ function PostFeeds() {
               {posts.length > 0 ? posts.map((post , index) => (
                 <Post
                   key={`${post.postId}-${index}`}
+                  postId={post.postId}
                   user={post.user}
                   image={post.image}
                   content={post.content}

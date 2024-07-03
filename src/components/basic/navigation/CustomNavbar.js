@@ -59,7 +59,9 @@ export default function CustomNavbar(props) {
                     color='dark'
                     dark
                     expand='md'
-                    fixed='top'>
+                    fixed='top'
+                    mb-4
+                    >
 
                     <NavbarBrand tag={ReactLink} to="/">socioGram</NavbarBrand>
                     <NavbarToggler onClick={toggle} />

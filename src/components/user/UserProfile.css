@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: row;
     gap: 1px;
+
+
   }
 
   .timeline_left {
@@ -10,3 +12,20 @@
     background-color: #f4f4f9;
     border-radius: 10px;
   }
+
+.profile-inner{
+  flex: 1;
+  justify-content: space-between;
+
+}  
+
+.edit-btn button{
+  background: transparent;
+  border-radius: 0;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.edit-btn img{
+  width: 36px
+}

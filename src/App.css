@@ -1,7 +1,9 @@
 /* config.css */
 
 /* helpers/align.css */
-
+body{
+    overflow-x: hidden;
+}
 .modal-wrapper {
     position: fixed;
     left: 0;

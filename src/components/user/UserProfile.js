@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GetPostsByUser } from '../../services/PostsService';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import Post from '../posts/Post';
-
+import './UserProfile.css';
 
 function UserProfile() {
 
@@ -94,10 +94,10 @@ function UserProfile() {
         showPostModal && <CreatePostModal closeCreatePostModal={closeCreatePostModal} />
       }
 
-      <div className="col-4 offset-3">
+      <div className="col-9 offset-3">
         <ToastContainer />
         <div className="timeline p-4">
-          <img src={`https://cloud.appwrite.io/v1/avatars/initials?name=${profile.name}&amp;project=65c8d4500c7cf523e70d`} alt="profilePic" className="img-fluid rounded-circle" style={{ width: '10rem', height: '10rem' }} />
+          <img src={`https://cloud.appwrite.io/v1/avatars/initials?name=${profile.name}&amp;project=65c8d4500c7cf523e70d`} alt="profilePic" className="img-fluid rounded-circle" style={{ width: '9rem', height: '9rem' }} />
           <br />
           {
             loader && <div>
@@ -106,16 +106,19 @@ function UserProfile() {
           }
           {
             !loader &&
-
-            <div className="flex-center flex-col gap-1 m-3">
-              <p className="mb-1 base-medium text-white text-left">
+          <div className="d-flex m-3 profile-inner">
+            <div className='profile-detail'>
+              <h1 className="mb-1 base-medium text-white text-left">
                 {profile.name}
-              </p>
+              </h1>
               <p className="small-regular text-white-50 bg-dark text-left">
                 @{profile.email}
               </p>
-              {writeAccess && <button><img src='edit.svg' alt='edit' />Edit Profile</button>}
             </div>
+            <div className='edit-btn'>
+                {writeAccess && <button className='text-white border-0'><img src='edit.svg' className='px-2' alt='edit' />Edit Profile</button>}
+            </div>
+          </div>
           }
         </div>
         <br />

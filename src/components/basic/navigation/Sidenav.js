@@ -8,7 +8,7 @@ function Sidenav(props) {
   const navigate = useNavigate();
 
   return (
-    <div className='sidenav bg-dark'>
+    <div className='sidenav bg-dark mt-4'>
            
       <div className='sidenav_buttons'>
         <button className='sidenav_button' onClick={()=>{navigate('/userHome')}}>

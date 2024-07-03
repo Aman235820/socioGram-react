@@ -5,11 +5,10 @@
   .post {
     width: 100%;
     max-width: 550px;
-    margin: 30px auto; /* Centering the post horizontally */
-    padding: 20px;
-    background-color: #fff;
-    /* border-radius: 10px; */
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    border: 1px solid #3a3a3a;
+    border-radius: 24px;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
   }
   
   .post_header {
@@ -47,8 +46,8 @@
   
   .post_footerIcons {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
     margin-top: 10px;
   }
