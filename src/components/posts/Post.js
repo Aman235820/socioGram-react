@@ -3,7 +3,7 @@ import './Posts.css'
 import { useNavigate } from 'react-router-dom';
 import { Input, InputGroup, Button } from 'reactstrap';
 import AuthContext from '../../guards/AuthProvider';
-import { CreateComment } from '../../services/CommentService';
+import { CreateComment, DeleteComment } from '../../services/CommentService';
 
 export default function Post(props) {
 
@@ -56,9 +56,22 @@ export default function Post(props) {
       if (response?.hasError) {
         console.log("Error : ", response.message);
       }
+      else{
+         navigate(0);
+      }
     }
     else {
       alert("Please write something to post comment !!");
+    }
+  }
+
+  const handleDeleteComment = async (commentId, postId, user) => {
+    const response = await DeleteComment({ commentId, postId, user });
+    if (response?.hasError) {
+      console.log("Error : ", response.message);
+    }
+    else {
+         setShowComments(false);
     }
   }
 
@@ -94,8 +107,11 @@ export default function Post(props) {
           <p className='mb-2' onClick={() => { commentToggler() }}>{showComments ? "Hide Comments" : "View Comments"}</p>
           {showComments && <div className='comment'>
             {props.comments && props.comments.map((comment, index) => (
-              <p className='mb-1' key={index}><b>{comment.user.name} -</b> {comment.content}</p>
-            ))}
+              <p className='mb-1' key={index}><b>{comment.user.name} -</b> {comment.content}
+                <img hidden={!(comment.user.id === user.id || user.id === props.user.id)} onClick={() => { handleDeleteComment(comment.commentId, props.postId, user) }} alt="delete" src='delete.svg' />
+              </p>
+            ))
+            }
           </div>}
         </div>
       </div>

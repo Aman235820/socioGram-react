@@ -9,13 +9,36 @@ const CreateComment = async (data) => {
     return axios.post(endpoint, {
         content: data.comment
     }
-    , {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${data.user.token}`
+        , {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${data.user.token}`
+            }
+        }
+    ).then((response) => {
+        if (response && response.data) {
+            return response.data;
+        }
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+
+const DeleteComment = async (data) => {
+    const endpoint = `${baseurl}/deleteComment/comment/${data.commentId}`;
+    return axios.delete(endpoint, {
+        params: {
+            postId: data.postId,
+            userId: data.user.id
         }
     }
-).then((response) => {
+        , {
+            headers: {
+                'Authorization': `Bearer ${data.user.token}`
+            }
+        }
+    ).then((response) => {
         if (response && response.data) {
             return response.data;
         }
@@ -27,4 +50,4 @@ const CreateComment = async (data) => {
 
 
 
-export { CreateComment };
+export { CreateComment, DeleteComment };

@@ -1,15 +1,13 @@
 import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useState } from 'react';
-import Cookies from 'js-cookie';
+import AuthContext from  "../../../guards/AuthProvider";
 import {
     Collapse,
     Navbar,
     NavbarToggler,
     NavbarBrand,
     Nav,
-    NavItem,
-    NavLink,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
@@ -27,17 +25,13 @@ export default function CustomNavbar(props) {
 
     const [isFormPage , setFormPage] = useState(true);
 
-    const [user , setUser] =   useState(null);
+    const {user} = useContext(AuthContext);
 
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const userCookie = Cookies.get('user');
-        if (userCookie) {
-            setUser(JSON.parse(Cookies.get('user')));
-        }
         if(props.myLocation ==='login' || props.myLocation ==='register'){
             setFormPage(true);
           }
@@ -69,23 +63,15 @@ export default function CustomNavbar(props) {
                     { !isFormPage && <Collapse isOpen={isOpen} navbar>
 
                         <Nav className="me-auto" navbar>
-                            <NavItem>
-                                <NavLink  tag = {ReactLink} to="/components" >Components</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={ReactLink} to="/login">
-                                    Login
-                                </NavLink>
-                            </NavItem>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    More
+                                    {user.userName}
                                 </DropdownToggle>
                                 <DropdownMenu end>
                                     <DropdownItem>Services</DropdownItem>
                                     <DropdownItem>Github</DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem>Logout</DropdownItem>
+                                    <DropdownItem  onClick={handleLogout}>Logout</DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
