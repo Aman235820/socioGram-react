@@ -7,10 +7,11 @@ const CreateComment = async (data) => {
     const id = data.user.id;
     const endpoint = `${baseurl}/writeComment/userId/${id}/postId/${data.postId}`;
     return axios.post(endpoint, {
-        'content': data.comment
+        content: data.comment
     }
     , {
         headers: {
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${data.user.token}`
         }
     }
