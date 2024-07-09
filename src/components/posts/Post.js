@@ -56,8 +56,9 @@ export default function Post(props) {
       if (response?.hasError) {
         console.log("Error : ", response.message);
       }
-      else{
-         navigate(0);
+      else {
+        alert(`${response?.message}`);
+        navigate(0);
       }
     }
     else {
@@ -71,7 +72,9 @@ export default function Post(props) {
       console.log("Error : ", response.message);
     }
     else {
-         setShowComments(false);
+      setShowComments(false);
+      alert(`${response?.message}`);
+      navigate(0);
     }
   }
 
@@ -93,8 +96,9 @@ export default function Post(props) {
               <img src={`${baseurl}/${props.image}`} alt="Post" />
             </div>
           )}
+          <br />
           <div className='caption d-flex mt-2'><b>{props.user.name} : </b><div dangerouslySetInnerHTML={{ __html: props.content }} /></div>
-
+          <br />
           <InputGroup>
             <Input onChange={handleAddComment} />
             <Button onClick={() => { postCommentApi() }}>

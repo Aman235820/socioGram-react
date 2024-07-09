@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import AuthContext from "../../guards/AuthProvider";
-import { loginApi } from "../../services/AuthService";
+import { loginApi, resetPassApi} from "../../services/AuthService";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { userLogin, userLogout } from "../../redux/slices/AuthSlice";
 import Cookies from "js-cookie";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup, InputGroupText, Input } from 'reactstrap';
 
 export default function Login() {
 
@@ -14,6 +15,7 @@ export default function Login() {
 
     const { setStatus } = useContext(AuthContext);
     const [loader, setLoader] = useState(false);
+    const [resetPass , setResetPass] = useState('');
 
     const [loginDetails, setLoginDetails] = useState({
         username: "aman@gmail",
@@ -41,7 +43,7 @@ export default function Login() {
         if (!response.hasError) {
             setStatus(true);
             dispatch(userLogin(response.data));
-            Cookies.set('user' , JSON.stringify(response.data) , {expires : 1});
+            Cookies.set('user', JSON.stringify(response.data), { expires: 1 });
             navigate("/userHome");
             const timer = 4.5 * 60 * 60 * 1000;
 
@@ -57,6 +59,21 @@ export default function Login() {
         }
         setLoader(false);
     }
+
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => setModal(!modal);
+
+
+    const handleResetPassword = async ()=>{
+        setLoader(true);
+        const response = await resetPassApi(loginDetails.username , resetPass);
+        if(response){
+            alert(response?.message);
+        }
+        setLoader(false);
+    }
+
 
     return (
         <>
@@ -84,6 +101,7 @@ export default function Login() {
                     </form>
 
                     <p className="text-center text-white p-3 m-0">Not a member? <Link to={"/register"}><span>Sign up now</span></Link><svg className="icon"><use href="#arrow-right"></use></svg></p>
+                    <p className="text-center text-white p-3 m-0">Forgot Password? <Link onClick={toggle}><span>Reset now</span></Link><svg className="icon"><use href="#arrow-right"></use></svg></p>
 
                 </div>
 
@@ -92,6 +110,36 @@ export default function Login() {
                     <symbol id="lock" viewBox="0 0 1792 1792"><path d="M640 768h512V576q0-106-75-181t-181-75-181 75-75 181v192zm832 96v576q0 40-28 68t-68 28H416q-40 0-68-28t-28-68V864q0-40 28-68t68-28h32V576q0-184 132-316t316-132 316 132 132 316v192h32q40 0 68 28t28 68z" /></symbol>
                     <symbol id="user" viewBox="0 0 1792 1792"><path d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-320-893q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z" /></symbol>
                 </svg>
+            </div>
+
+
+            <div className="bg-dark">
+                <Modal isOpen={modal} toggle={toggle}>
+                    <ModalHeader toggle={toggle}>Reset Password !!</ModalHeader>
+                    <ModalBody>
+                    <InputGroup>
+                            <InputGroupText>
+                                @
+                            </InputGroupText>
+                            <Input disabled={true} value={loginDetails.username} />
+                        </InputGroup>
+                        <br/>
+                        <InputGroup>
+                            <InputGroupText>
+                                New Password
+                            </InputGroupText>
+                            <Input placeholder="Type Here.." onChange={(e)=>{setResetPass(e.target.value)}} />
+                        </InputGroup>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" disabled={loader} onClick={handleResetPassword}>
+                            Reset
+                        </Button>{' '}
+                        <Button color="secondary" onClick={toggle}>
+                            Cancel
+                        </Button>
+                    </ModalFooter>
+                </Modal>
             </div>
 
         </>

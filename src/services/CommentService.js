@@ -26,19 +26,13 @@ const CreateComment = async (data) => {
 
 
 const DeleteComment = async (data) => {
-    const endpoint = `${baseurl}/deleteComment/comment/${data.commentId}`;
-    return axios.delete(endpoint, {
-        params: {
-            postId: data.postId,
-            userId: data.user.id
+    const endpoint = `${baseurl}/deleteComment/comment/${data.commentId}?postId=${data.postId}&userId=${data.user.id}`;
+
+    return await axios.delete(endpoint,{
+        headers:{
+            'Authorization' : `Bearer ${data.user.token}`
         }
-    }
-        , {
-            headers: {
-                'Authorization': `Bearer ${data.user.token}`
-            }
-        }
-    ).then((response) => {
+    }).then((response) => {
         if (response && response.data) {
             return response.data;
         }

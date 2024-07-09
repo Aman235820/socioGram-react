@@ -23,4 +23,20 @@ const createUser = async (data)=>{
       
 }
 
-export { loginApi , createUser};
+
+const resetPassApi = async (username , password)=>{
+    const endpoint = `${baseurl}/resetPassword`;
+    return axios.post(endpoint , {
+         username : username, 
+         password : password
+    }).then((response)=>{
+           if(response && response.data){
+                return response.data;
+           }
+    }).catch((error)=>{
+           console.log(error);
+    })
+      
+}
+
+export { loginApi , createUser , resetPassApi};
