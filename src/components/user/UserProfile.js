@@ -11,6 +11,8 @@ import { GetPostsByUser } from '../../services/PostsService';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import Post from '../posts/Post';
 import './UserProfile.css';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup, InputGroupText, Input } from 'reactstrap';
+
 
 function UserProfile() {
 
@@ -77,6 +79,10 @@ function UserProfile() {
     setLoader(false);
   }
 
+  const handleEditProfile = ()=>{
+       
+  }
+
   const openCreatePostModal = () => {
     setShowPostModal(true);
   }
@@ -84,6 +90,11 @@ function UserProfile() {
     setShowPostModal(false);
   }
 
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+
+  console.log(user);
 
   return (
     <>
@@ -116,7 +127,7 @@ function UserProfile() {
               </p>
             </div>
             <div className='edit-btn'>
-                {writeAccess && <button className='text-white border-0'><img src='edit.svg' className='px-2' alt='edit' />Edit Profile</button>}
+                {writeAccess && <button className='text-white border-0'><img src='edit.svg' className='px-2' alt='edit' onClick={toggle} />Edit Profile</button>}
             </div>
           </div>
           }
@@ -170,6 +181,35 @@ function UserProfile() {
 
         <br />
       </div>
+
+      <div className="bg-dark">
+                <Modal isOpen={modal} toggle={toggle}>
+                    <ModalHeader toggle={toggle}>Update User !!</ModalHeader>
+                    <ModalBody>
+                    <InputGroup>
+                            <InputGroupText>
+                                @
+                            </InputGroupText>
+                            <Input disabled={true} value={user.username} />
+                        </InputGroup>
+                        <br/>
+                        <InputGroup>
+                            <InputGroupText>
+                                New Password
+                            </InputGroupText>
+                            <Input placeholder="Type Here.." />
+                        </InputGroup>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" disabled={loader} >
+                            Reset
+                        </Button>{' '}
+                        <Button color="secondary" onClick={toggle}>
+                            Cancel
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
 
 
     </>

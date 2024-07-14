@@ -65,7 +65,7 @@ export default function CustomNavbar(props) {
                         <Nav className="me-auto" navbar>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    {user.userName}
+                                    {user.name}
                                 </DropdownToggle>
                                 <DropdownMenu end>
                                     <DropdownItem>Services</DropdownItem>
