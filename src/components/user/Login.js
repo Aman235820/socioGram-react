@@ -1,11 +1,13 @@
 import { useDispatch } from "react-redux";
 import AuthContext from "../../guards/AuthProvider";
-import { loginApi, resetPassApi} from "../../services/AuthService";
+import { loginApi, resetPassApi } from "../../services/AuthService";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { userLogin, userLogout } from "../../redux/slices/AuthSlice";
 import Cookies from "js-cookie";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup, InputGroupText, Input } from 'reactstrap';
 
 export default function Login() {
@@ -15,7 +17,7 @@ export default function Login() {
 
     const { setStatus } = useContext(AuthContext);
     const [loader, setLoader] = useState(false);
-    const [resetPass , setResetPass] = useState('');
+    const [resetPass, setResetPass] = useState('');
 
     const [loginDetails, setLoginDetails] = useState({
         username: "aman@gmail",
@@ -65,20 +67,24 @@ export default function Login() {
     const toggle = () => setModal(!modal);
 
 
-    const handleResetPassword = async ()=>{
-        setLoader(true);
-        const response = await resetPassApi(loginDetails.username , resetPass);
-        if(response){
-            alert(response?.message);
-            toggle();
+    const handleResetPassword = async () => {
+
+        const confirm = window.confirm("Are you sure you want to RESET password ?");
+        if (confirm) {
+            setLoader(true);
+            const response = await resetPassApi(loginDetails.username, resetPass);
+            if (response) {
+                toggle();
+                toast.success(response?.message);
+            }
+            setLoader(false);
         }
-        setLoader(false);
     }
 
 
     return (
         <>
-
+            <ToastContainer />
             <div className="login-page align bg-dark md-5">
 
                 <div className="grid">
@@ -118,18 +124,18 @@ export default function Login() {
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Reset Password !!</ModalHeader>
                     <ModalBody>
-                    <InputGroup>
+                        <InputGroup>
                             <InputGroupText>
                                 @
                             </InputGroupText>
                             <Input disabled={true} value={loginDetails.username} />
                         </InputGroup>
-                        <br/>
+                        <br />
                         <InputGroup>
                             <InputGroupText>
                                 New Password
                             </InputGroupText>
-                            <Input placeholder="Type Here.." onChange={(e)=>{setResetPass(e.target.value)}} />
+                            <Input placeholder="Type Here.." onChange={(e) => { setResetPass(e.target.value) }} />
                         </InputGroup>
                     </ModalBody>
                     <ModalFooter>

@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import AuthContext from '../../guards/AuthProvider';
 import { GetUserById, UpdateUser } from '../../services/UserServices';
 import { useLocation } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GetPostsByUser } from '../../services/PostsService';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
@@ -82,7 +82,7 @@ function UserProfile() {
         setProfile(response.data);
       }
       else {
-        toast("Error : ", response.message);
+        toast.error("Error : ", response.message);
       }
     }
     setLoader(false);
@@ -105,7 +105,7 @@ function UserProfile() {
         })
       })
       setFormError(false);
-      alert("Successfully updated user !!");
+      toast.success("Successfully updated user !!");
       toggle();
       Cookies.set('user', JSON.stringify(user), { expires: 1 });
     }
@@ -162,13 +162,13 @@ function UserProfile() {
     <>
       <br /><br />
       <Sidenav openCreatePostModal={openCreatePostModal} />
+      <ToastContainer/>
 
       {
         showPostModal && <CreatePostModal closeCreatePostModal={closeCreatePostModal} />
       }
 
       <div className="col-9 offset-3">
-        <ToastContainer />
         <div className="timeline p-4">
           <img src={`https://cloud.appwrite.io/v1/avatars/initials?name=${profile.name}&amp;project=65c8d4500c7cf523e70d`} alt="profilePic" className="img-fluid rounded-circle" style={{ width: '9rem', height: '9rem' }} />
           <br />
@@ -182,7 +182,7 @@ function UserProfile() {
             <div className="d-flex m-3 profile-inner">
               <div className='profile-detail'>
                 <h1 className="mb-1 base-medium text-white text-left">
-                  {profile.name}
+                  {profile.name} , {profile.age}
                 </h1>
                 <p className="small-regular text-white-50 bg-dark text-left">
                   @{profile.email}
@@ -196,7 +196,7 @@ function UserProfile() {
         </div>
         <br />
         <div>
-          {data && <Pagination size="sm">
+          {data && posts?.length > 0 &&  <Pagination size="sm">
             <PaginationItem disabled={data.data.pageNumber === 0} onClick={() => changePage(data.data.pageNumber - 1)}>
               <PaginationLink
                 previous
@@ -217,6 +217,9 @@ function UserProfile() {
               />
             </PaginationItem>
           </Pagination>}
+          {
+            posts?.length === 0 && <p className='text-white'>{`Oops , Nothing to see :(`}</p>
+          }
         </div>
 
         <div className='timeline_left bg-dark'>
@@ -228,6 +231,7 @@ function UserProfile() {
               {posts.length > 0 ? posts.map((post, index) => (
                 <Post
                   key={`${post.postId}-${index}`}
+                  postId={post.postId}
                   user={post.user}
                   image={post.image}
                   content={post.content}

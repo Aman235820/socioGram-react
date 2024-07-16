@@ -51,5 +51,22 @@ const GetPostsByUser = async ({ queryKey }) => {
      })
 }
 
+const DeletePost = async ({token , postId}) => {
+     const endpoint = `${baseurl}/removePost/${postId}`;
+     return axios.delete(endpoint, {
+          headers: {
+               'Authorization': `Bearer ${token}`
+          }
+     }).then((response) => {
+          if (response && response.data) {
+               return response.data;
+          }
+     }).catch((error) => {
+          console.log(error);
+     })
+}
 
-export { GetAllPosts, CreatePost , GetPostsByUser };
+
+
+
+export { GetAllPosts, CreatePost , GetPostsByUser , DeletePost};

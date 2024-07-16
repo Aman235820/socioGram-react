@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import AuthContext from '../../guards/AuthProvider';
 import { Button, Form, FormGroup, Label, Col, Input, FormText } from 'reactstrap'
 import JoditEditor from 'jodit-react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { CreatePost } from '../../services/PostsService';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,7 +50,7 @@ function CreatePostModal(props) {
             navigate(0);
         }
         else {
-            toast("Error : ", response.message);
+            toast.error("Error : ", response.message);
         }
         setLoader(false);
     }
@@ -125,7 +125,6 @@ function CreatePostModal(props) {
                             </Col>
                         </FormGroup>
                     </Form>
-                    <ToastContainer />
                 </div>
             </div>
         </>, document.querySelector(".createPostModal")

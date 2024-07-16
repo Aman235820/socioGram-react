@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Post from "./Post";
 import './PostFeeds.css';
 import InfiniteScroll from "react-infinite-scroll-component";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function PostFeeds() {
@@ -30,7 +30,7 @@ function PostFeeds() {
 
   useMemo(()=>{                                               //used to memoize (cache) the result of a function or an expression. This can improve performance by preventing unnecessary calculations.
     if(isError){
-          toast("Error : ",error);
+          toast.error("Error : ",error);
     }
   } , [isError]);
 
@@ -43,7 +43,6 @@ function PostFeeds() {
   return (
     <>
       <div className='timeline bg-dark text-white mt-5'>
-        <ToastContainer/>
         <div className='timeline_left bg-dark'>
           {isLoading && posts.length === 0 ? (
             <p>Loading....</p>
