@@ -70,6 +70,7 @@ export default function Login() {
         const response = await resetPassApi(loginDetails.username , resetPass);
         if(response){
             alert(response?.message);
+            toggle();
         }
         setLoader(false);
     }

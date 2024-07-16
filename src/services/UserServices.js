@@ -34,4 +34,24 @@ const GetAllUsers = async ({queryKey}) => {
 
 }
 
-export { GetUserById , GetAllUsers };
+const UpdateUser = async ({updateForm , token}) => {
+    //console.log(updateForm ,"  " ,token)
+    const endpoint = `${baseurl}/updateUser`;
+    return await axios.put(endpoint, {
+         name : updateForm.name,
+         password : updateForm.password,
+         age : updateForm.age
+    }, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }).then((response) => {
+        if (response && response.data) {
+            return response.data;
+        }
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+export { GetUserById , GetAllUsers  , UpdateUser};
