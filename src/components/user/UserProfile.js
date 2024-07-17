@@ -25,7 +25,7 @@ function UserProfile() {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(user.token);
   const [loader, setLoader] = useState(false);
-  const [loadings, setLoadings] = useState(false);
+  const [loading, setLoading] = useState(true);
   const id = location.state || {};       //destructure the props state
   const [formError, setFormError] = useState(false);
   const [formErrorMsg, setFormErrorMsg] = useState('');
@@ -62,6 +62,9 @@ function UserProfile() {
     if (data && data.data && Array.isArray(data.data.content)) {
       setPosts(data.data.content);
     }
+    if(isError){
+        toast.error("Error : " , error);
+    }
   }, [data, location.state, user]);
 
   const changePage = (pgNum) => {
@@ -89,7 +92,6 @@ function UserProfile() {
   }
 
   const handleEditProfile = async () => {
-    setLoadings(true);
     console.log(updateForm)
     const response = await UpdateUser({ updateForm, token });
     if (response.hasError) {
@@ -109,7 +111,6 @@ function UserProfile() {
       toggle();
       Cookies.set('user', JSON.stringify(user), { expires: 1 });
     }
-    setLoadings(false);
   }
 
   const openCreatePostModal = () => {
@@ -120,7 +121,6 @@ function UserProfile() {
   }
 
   const [modal, setModal] = useState(false);
-
   const toggle = () => setModal(!modal);
 
   const updateName = (e) => {
@@ -157,6 +157,16 @@ function UserProfile() {
       return ({ ...prev, age: Number(value) });
     })
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 8000);
+  
+    // Cleanup function
+    return () => clearTimeout(timer);
+  }, []);
+
 
   return (
     <>
@@ -218,7 +228,7 @@ function UserProfile() {
             </PaginationItem>
           </Pagination>}
           {
-            posts?.length === 0 && <p className='text-white'>{`Oops , Nothing to see :(`}</p>
+            posts?.length === 0 && ( loading ? (<p className='text-white'>{`Loading Posts...`}</p>) :  (<p className='text-white'>{`Oops , Nothing to see :(`}</p>))
           }
         </div>
 

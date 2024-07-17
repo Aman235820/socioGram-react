@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState , useRef } from 'react';
 import './Posts.css'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Input, InputGroup, Button } from 'reactstrap';
 import AuthContext from '../../guards/AuthProvider';
 import { CreateComment, DeleteComment } from '../../services/CommentService';
 import { DeletePost } from '../../services/PostsService';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup,Form, FormGroup, Label, Col, FormText, Input } from 'reactstrap';
+import JoditEditor from 'jodit-react';
 
 export default function Post(props) {
 
@@ -16,7 +17,12 @@ export default function Post(props) {
   const [date, setDate] = useState(null);
   const [comment, setComment] = useState("");
   const { user } = useContext(AuthContext);
+  const [content, setContent] = useState(null);
   const location = useLocation();
+  const editor = useRef();
+  const [image, setImage] = useState(null);
+
+
 
   const commentToggler = () => {
     setShowComments(!showComments);
@@ -105,6 +111,9 @@ export default function Post(props) {
 
   }
 
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+
   return (
     <>
       <ToastContainer />
@@ -133,8 +142,13 @@ export default function Post(props) {
               <Button onClick={() => { postCommentApi() }}>
                 Post Comment
               </Button>
-            </InputGroup> {(location.pathname === '/userProfile' && user.id === props.user.id) &&
-              <Button className='btn-danger' onClick={() => handleDeletePost(props.postId)}>Delete Post</Button>}
+            </InputGroup>
+            {(location.pathname === '/userProfile' && user.id === props.user.id) &&
+              <>
+                <Button className='btn-danger' onClick={() => handleDeletePost(props.postId)}>Delete Post</Button>
+                <Button className='btn-info' onClick={toggle}>Update Post</Button>
+              </>
+            }
           </span>
 
 
@@ -151,6 +165,66 @@ export default function Post(props) {
           </div>}
         </div>
       </div>
+
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Update Post !!</ModalHeader>
+        <ModalBody>
+          <Form>
+
+            <FormGroup row>
+              <Label
+                for="exampleText"
+                sm={2}
+              >
+                Post Content
+              </Label>
+              <Col sm={10}>
+                <JoditEditor
+                  ref={editor}
+                  value={content}
+                  onChange={newContent => { setContent(newContent) }}
+                />
+                {/* <Input
+            id="exampleText"
+            name="text"
+            type="textarea"
+            style={{height:'170px'}}
+        /> */}
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label
+                for="exampleFile"
+                sm={2}
+              >
+                Image
+              </Label>
+              <Col sm={10}>
+                <Input
+                  id="exampleFile"
+                  name="file"
+                  type="file"
+                  onChange={(e) => { setImage(e.target.files[0]) }}
+                />
+                <FormText>
+                  Upload any image less than 10 MB !
+                </FormText>
+              </Col>
+            </FormGroup>
+
+          </Form>
+
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" >
+            Update
+          </Button>{' '}
+          <Button color="secondary" onClick={toggle}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+
     </>
   );
 }
