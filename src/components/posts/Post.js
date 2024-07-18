@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState , useRef } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import './Posts.css'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthContext from '../../guards/AuthProvider';
 import { CreateComment, DeleteComment } from '../../services/CommentService';
-import { DeletePost } from '../../services/PostsService';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup,Form, FormGroup, Label, Col, FormText, Input } from 'reactstrap';
+import { DeletePost, UpdatePost } from '../../services/PostsService';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup, Form, FormGroup, Label, Col, FormText, Input } from 'reactstrap';
 import JoditEditor from 'jodit-react';
 
 export default function Post(props) {
@@ -17,10 +17,11 @@ export default function Post(props) {
   const [date, setDate] = useState(null);
   const [comment, setComment] = useState("");
   const { user } = useContext(AuthContext);
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState(props.content);
   const location = useLocation();
   const editor = useRef();
   const [image, setImage] = useState(null);
+  const [loader, setLoader] = useState(false);
 
 
 
@@ -109,6 +110,26 @@ export default function Post(props) {
       }
     }
 
+  }
+
+  const handleUpdatePost = async (e, postId) => {
+    setLoader(true);
+    const token = user.token;
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('updatedPost', JSON.stringify({ content }));
+    const response = await UpdatePost({ token, formData , postId });
+    if (!response.hasError) {
+      toast.success("Successfully updated post !!");
+      setTimeout(() => {
+        navigate(0);
+      }, 2000);
+    }
+    else {
+      toast.error("Error : ", response.message);
+    }
+    setLoader(false);
   }
 
   const [modal, setModal] = useState(false);
@@ -216,7 +237,10 @@ export default function Post(props) {
 
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" >
+          <Button color="primary" disabled={loader} onClick={(e) => {
+            handleUpdatePost(e, props.postId)
+            setTimeout(() => { toggle() }, 5000);
+          }}>
             Update
           </Button>{' '}
           <Button color="secondary" onClick={toggle}>

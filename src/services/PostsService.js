@@ -34,6 +34,24 @@ const CreatePost = async (data) => {
      })
 }
 
+
+const UpdatePost = async ({ token, formData, postId }) => {
+     const endpoint = `${baseurl}/updatePost/${postId}`;
+     return axios.put(endpoint, formData, {
+          headers: {
+               'Content-Type': 'multipart/form-data',
+               'Authorization': `Bearer ${token}`
+          }
+     }).then((response) => {
+          if (response && response.data) {
+               return response.data;
+          }
+     }).catch((error) => {
+          console.log(error);
+     })
+}
+
+
 const GetPostsByUser = async ({ queryKey }) => {
      const [_key, id, pagination] = queryKey;
      const endpoint = `${baseurl}/user/${id}/getPostsByUser`;
@@ -51,7 +69,7 @@ const GetPostsByUser = async ({ queryKey }) => {
      })
 }
 
-const DeletePost = async ({token , postId}) => {
+const DeletePost = async ({ token, postId }) => {
      const endpoint = `${baseurl}/removePost/${postId}`;
      return axios.delete(endpoint, {
           headers: {
@@ -69,4 +87,4 @@ const DeletePost = async ({token , postId}) => {
 
 
 
-export { GetAllPosts, CreatePost , GetPostsByUser , DeletePost};
+export { GetAllPosts, CreatePost, GetPostsByUser, DeletePost, UpdatePost };
