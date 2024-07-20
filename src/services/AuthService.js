@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseurl = 'http://localhost:6060/socialMedia/auth';
+const appUrl = process.env.REACT_APP_API_BASEURL;
+const baseurl = `${appUrl}/socialMedia/auth`;
 
 const loginApi = async (data) => {
     const endpoint = `${baseurl}/login`;

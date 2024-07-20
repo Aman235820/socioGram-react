@@ -3,8 +3,8 @@ import Sidenav from "../basic/navigation/Sidenav";
 import CreatePostModal from "../posts/CreatePostModal";
 import { useQuery } from '@tanstack/react-query';
 import AuthContext from '../../guards/AuthProvider';
-import { GetUserById, UpdateUser } from '../../services/UserServices';
-import { useLocation } from 'react-router-dom';
+import { GetUserById, UpdateUser , DeleteUser } from '../../services/UserServices';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GetPostsByUser } from '../../services/PostsService';
@@ -28,6 +28,7 @@ function UserProfile() {
   const [loading, setLoading] = useState(true);
   const id = location.state || {};       //destructure the props state
   const [formError, setFormError] = useState(false);
+  const navigate = useNavigate();
   const [formErrorMsg, setFormErrorMsg] = useState('');
   const [updateForm, setUpdateForm] = useState({
     "name": user.name,
@@ -62,8 +63,8 @@ function UserProfile() {
     if (data && data.data && Array.isArray(data.data.content)) {
       setPosts(data.data.content);
     }
-    if(isError){
-        toast.error("Error : " , error);
+    if (isError) {
+      toast.error("Error : ", error);
     }
   }, [data, location.state, user]);
 
@@ -92,7 +93,6 @@ function UserProfile() {
   }
 
   const handleEditProfile = async () => {
-    console.log(updateForm)
     const response = await UpdateUser({ updateForm, token });
     if (response.hasError) {
       setFormError(true);
@@ -158,11 +158,25 @@ function UserProfile() {
     })
   }
 
+  const handleDeleteProfile = async () => {
+    const confirm = window.confirm("Are you sure you want to Delete this Profile !!");
+    if (confirm) {
+      const response = await DeleteUser(user);
+      if (response.hasError) {
+        toast.error("Error : " ,  response.message);
+      }
+      else{
+          alert("Profile delete successfully !!");
+          navigate("/");
+      }
+    }
+  }
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 8000);
-  
+
     // Cleanup function
     return () => clearTimeout(timer);
   }, []);
@@ -172,7 +186,7 @@ function UserProfile() {
     <>
       <br /><br />
       <Sidenav openCreatePostModal={openCreatePostModal} />
-      <ToastContainer/>
+      <ToastContainer />
 
       {
         showPostModal && <CreatePostModal closeCreatePostModal={closeCreatePostModal} />
@@ -200,13 +214,14 @@ function UserProfile() {
               </div>
               <div className='edit-btn'>
                 {writeAccess && <button className='text-white border-0' onClick={toggle}><img src='edit.svg' className='px-2' alt='edit' />Edit Profile</button>}
+                {writeAccess && <button className='btn-danger' onClick={handleDeleteProfile}>Delete Profile</button>}
               </div>
             </div>
           }
         </div>
         <br />
         <div>
-          {data && posts?.length > 0 &&  <Pagination size="sm">
+          {data && posts?.length > 0 && <Pagination size="sm">
             <PaginationItem disabled={data.data.pageNumber === 0} onClick={() => changePage(data.data.pageNumber - 1)}>
               <PaginationLink
                 previous
@@ -228,7 +243,7 @@ function UserProfile() {
             </PaginationItem>
           </Pagination>}
           {
-            posts?.length === 0 && ( loading ? (<p className='text-white'>{`Loading Posts...`}</p>) :  (<p className='text-white'>{`Oops , Nothing to see :(`}</p>))
+            posts?.length === 0 && (loading ? (<p className='text-white'>{`Loading Posts...`}</p>) : (<p className='text-white'>{`Oops , Nothing to see :(`}</p>))
           }
         </div>
 

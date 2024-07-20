@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseurl = 'http://localhost:6060/socialMedia/user';
+const appUrl = process.env.REACT_APP_API_BASEURL;
+const baseurl = `${appUrl}/socialMedia/user`;
 
 const GetUserById = async ({id , token}) => {
     const endpoint = `${baseurl}/getUserById/${id}`;
@@ -54,4 +55,20 @@ const UpdateUser = async ({updateForm , token}) => {
     })
 }
 
-export { GetUserById , GetAllUsers  , UpdateUser};
+
+const DeleteUser = async (user) => {
+    const endpoint = `${baseurl}/deleteUser/${user.id}`;
+    return await axios.delete(endpoint, {
+        headers: {
+            "Authorization": `Bearer ${user.token}`
+        }
+    }).then((response) => {
+        if (response && response.data) {
+            return response.data;
+        }
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+export { GetUserById , GetAllUsers  , UpdateUser , DeleteUser};

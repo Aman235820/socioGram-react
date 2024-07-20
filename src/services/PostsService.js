@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseurl = 'http://localhost:6060/socialMedia/posts';
+const appUrl = process.env.REACT_APP_API_BASEURL;
+const baseurl = `${appUrl}/socialMedia/posts`;
 
 
 const GetAllPosts = async ({ queryKey }) => {
