@@ -12,7 +12,7 @@ import JoditEditor from 'jodit-react';
 export default function Post(props) {
 
   const navigate = useNavigate();
-  const baseurl = 'http://localhost:6060/images';
+  const baseurl = `${process.env.REACT_APP_API_BASEURL}/images`;
   const [showComments, setShowComments] = useState(false);
   const [date, setDate] = useState(null);
   const [comment, setComment] = useState("");
