@@ -155,8 +155,8 @@ export default function Post(props) {
             </div>
           )}
           <br />
-          <div className='caption d-flex mt-2'><b>{props.user.name} : </b><div dangerouslySetInnerHTML={{ __html: props.content }} /></div>
-          <br />
+          <div className='caption d-flex mt-2 mb-3'><b>{props.user.name} : </b><div dangerouslySetInnerHTML={{ __html: props.content }} /></div>
+          {/* <br /> */}
           <span>
             <InputGroup>
               <Input onChange={handleAddComment} />
@@ -165,10 +165,10 @@ export default function Post(props) {
               </Button>
             </InputGroup>
             {(location.pathname === '/userProfile' && user.id === props.user.id) &&
-              <>
-                <Button className='btn-danger' onClick={() => handleDeletePost(props.postId)}>Delete Post</Button>
+              <div className='post-btn mt-3 d-flex justify-content-flex-end'>
                 <Button className='btn-info' onClick={toggle}>Update Post</Button>
-              </>
+                <Button className='btn-danger' onClick={() => handleDeletePost(props.postId)}>Delete Post</Button>
+              </div>
             }
           </span>
 
@@ -176,7 +176,7 @@ export default function Post(props) {
         </div>
         <div className='post_footerIcons'>
           <p className='mb-2' onClick={() => { commentToggler() }}>{showComments ? "Hide Comments" : "View Comments"}</p>
-          {showComments && <div className='comment'>
+          {showComments && <div className='comment w-100 d-flex'>
             {props.comments && props.comments.map((comment, index) => (
               <p className='mb-1' key={index}><b>{comment.user.name} -</b> {comment.content}
                 <img hidden={!(comment.user.id === user.id || user.id === props.user.id)} onClick={() => { handleDeleteComment(comment.commentId, props.postId, user) }} alt="delete" src='delete.svg' />

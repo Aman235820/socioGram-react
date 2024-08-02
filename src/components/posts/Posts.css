@@ -73,3 +73,20 @@
     gap: 8px;
   }
   
+  .comment{
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .comment p:last-child{
+    margin: 0 !important;
+  }
+  .comment img{
+    position: relative;
+    top: 2px;
+    right: 0;
+    float: right;
+    cursor: pointer;
+  }
+  .post-btn{
+    gap: 10px;
+  }

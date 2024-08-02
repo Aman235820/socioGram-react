@@ -185,14 +185,16 @@ function UserProfile() {
   return (
     <>
       <br /><br />
-      <Sidenav openCreatePostModal={openCreatePostModal} />
-      <ToastContainer />
+      <div className='row'>
+          <div className='col-3'>
+            <Sidenav openCreatePostModal={openCreatePostModal} />
+          </div>
 
       {
         showPostModal && <CreatePostModal closeCreatePostModal={closeCreatePostModal} />
       }
 
-      <div className="col-9 offset-3">
+      <div className="col-9">
         <div className="timeline p-4">
           <img src={`https://cloud.appwrite.io/v1/avatars/initials?name=${profile.name}&amp;project=65c8d4500c7cf523e70d`} alt="profilePic" className="img-fluid rounded-circle" style={{ width: '9rem', height: '9rem' }} />
           <br />
@@ -214,14 +216,37 @@ function UserProfile() {
               </div>
               <div className='edit-btn'>
                 {writeAccess && <button className='text-white border-0' onClick={toggle}><img src='edit.svg' className='px-2' alt='edit' />Edit Profile</button>}
-                {writeAccess && <button className='btn-danger' onClick={handleDeleteProfile}>Delete Profile</button>}
+                {writeAccess && <button className='text-white border-0' onClick={handleDeleteProfile}><img src='edit.svg' className='px-2' alt='edit' />Delete Profile</button>}
               </div>
             </div>
           }
         </div>
-        <br />
+    
+        <div className='timeline_left bg-dark'>
+          {isLoading && posts.length === 0 ? (
+            <p>Loading....</p>
+          ) : (
+            <div className='timeline_post bg-dark'>
+
+              {posts.length > 0 ? posts.map((post, index) => (
+                <Post
+                  key={`${post.postId}-${index}`}
+                  postId={post.postId}
+                  user={post.user}
+                  image={post.image}
+                  content={post.content}
+                  comments={post.comments}
+                  postDate={post.postDate}
+                />
+              )) : (
+                <p>No posts available !!</p>
+              )}
+            </div>
+          )}
+        </div>
+
         <div>
-          {data && posts?.length > 0 && <Pagination size="sm">
+          {data && posts?.length > 0 && <Pagination>
             <PaginationItem disabled={data.data.pageNumber === 0} onClick={() => changePage(data.data.pageNumber - 1)}>
               <PaginationLink
                 previous
@@ -247,31 +272,11 @@ function UserProfile() {
           }
         </div>
 
-        <div className='timeline_left bg-dark'>
-          {isLoading && posts.length === 0 ? (
-            <p>Loading....</p>
-          ) : (
-            <div className='timeline_post bg-dark'>
-
-              {posts.length > 0 ? posts.map((post, index) => (
-                <Post
-                  key={`${post.postId}-${index}`}
-                  postId={post.postId}
-                  user={post.user}
-                  image={post.image}
-                  content={post.content}
-                  comments={post.comments}
-                  postDate={post.postDate}
-                />
-              )) : (
-                <p>No posts available !!</p>
-              )}
-            </div>
-          )}
-        </div>
-
-        <br />
       </div>
+      
+      </div>
+
+      
 
       <div>
         <Modal isOpen={modal} toggle={toggle}>
@@ -318,6 +323,7 @@ function UserProfile() {
         </Modal>
       </div>
 
+      <ToastContainer />
 
     </>
 
