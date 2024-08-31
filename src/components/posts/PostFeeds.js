@@ -42,10 +42,10 @@ function PostFeeds() {
 
   return (
     <>
-      <div className='timeline bg-dark text-white mt-5'>
+      <div className={isLoading && posts.length === 0 ? `timeline loader` : `timeline bg-dark text-white mt-5`}>
         <div className='timeline_left bg-dark'>
           {isLoading && posts.length === 0 ? (
-            <p>Loading....</p>
+            <img src="loader.gif" className="loading" alt = "Loading..."/>
           ) : (
             <div className='timeline_post bg-dark'>
               <InfiniteScroll

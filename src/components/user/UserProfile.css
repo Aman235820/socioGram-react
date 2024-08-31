@@ -2,8 +2,21 @@
     display: flex;
     flex-direction: row;
     gap: 1px;
+  }
 
+  .timeline.user-profile {
+    justify-content: flex-start;
+  }
 
+  .profile-content{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .profile-content small{
+    font-size: 16px;
   }
 
   .timeline_left {

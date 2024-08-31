@@ -58,14 +58,12 @@ export default function Register() {
     return (
         <>
 
-            <div className="login-page align bg-dark">
-
-                <div className="grid">
+            <div className="login-page register align bg-dark mt-5 pt-4">
 
                     <form className="login form" onSubmit={handleSubmit(registerUser)}>
 
                         <div>
-                            <div className="form__field">
+                            <div className="form__field mx-0 mb-1">
                                 <label htmlFor="login__username"><span>Name</span></label>
                                 <input id="login__username" type="text" name="name" className="form__input" placeholder="Fullname"
 
@@ -80,10 +78,10 @@ export default function Register() {
                                     })}
                                 />
                             </div>
-                            {errors.name && <p className="text-center text-danger p-1">{errors.name.message}</p>}
+                            {errors.name && <small className="text-left text-danger">{errors.name.message}</small>}
                         </div>
                         <div>
-                            <div className="form__field">
+                            <div className="form__field mx-0 mb-1">
                                 <label htmlFor="login__email"><span>Email</span></label>
                                 <input id="login__email" type="text" name="email" className="form__input" placeholder="Username"
 
@@ -98,10 +96,10 @@ export default function Register() {
                                     })}
                                 />
                             </div>
-                            {errors.email && <p className="text-center text-danger p-1">{errors.email.message}</p>}
+                            {errors.email && <small className="text-left text-danger">{errors.email.message}</small>}
                         </div>
                         <div>
-                            <div className="form__field">
+                            <div className="form__field mx-0 mb-1">
                                 <label htmlFor="login__password"><span>Password</span></label>
                                 <input id="login__password" type="password" name="password" className="form__input" placeholder="Password"
                                     {
@@ -111,19 +109,19 @@ export default function Register() {
                                     }
                                 />
                             </div>
-                            {errors.password && <p className="text-center text-danger p-1">{errors.password.message}</p>}
+                            {errors.password && <small className="text-left text-danger">{errors.password.message}</small>}
                         </div>
 
                         <div>
-                            <div className="form__field">
+                            <div className="form__field mx-0 mb-1">
                                 <label htmlFor="login__confirmPassword"><span>Confirm Password</span></label>
                                 <input id="login__confirmPassword" onChange={(e) => matchPassword(e)} type="password" name="confirmPassword" className="form__input" placeholder="Re-Enter" />
                             </div>
-                            {errorMsg && <p className="text-center text-danger p-1">Password & Confirm Password should match !!</p>}
+                            {errorMsg && <small className="text-left text-danger">Password & Confirm Password should match !!</small>}
                         </div>
 
                         <div>
-                            <div className="form__field">
+                            <div className="form__field mx-0 mb-1">
                                 <label htmlFor="login__age"><span>Age</span></label>
                                 <input id="login__age" type="number" name="age" className="form__input" placeholder="Age"
                                     {
@@ -140,10 +138,10 @@ export default function Register() {
                                     }
                                 />
                             </div>
-                            {errors.age && <p className="text-center text-danger p-1">{errors.age.message}</p>}
+                            {errors.age && <small className="text-left text-danger">{errors.age.message}</small>}
                         </div>
 
-                        <div className="form__field mt-4">
+                        <div className="form__field mx-0 mb-1 mt-4">
                             <input disabled={errorMsg || loader} type="submit" value={loader ? "Loading..." : "Sign Up"} />
                         </div>
 
@@ -151,7 +149,6 @@ export default function Register() {
 
                     <p className="text-center text-white p-3 m-0">Already a member? <Link to={"/login"}><span>Log In</span></Link> <svg className="icon"><use href="#arrow-right"></use></svg></p>
 
-                </div>
 
                 <svg xmlns="http://www.w3.org/2000/svg" className="icons">
                     <symbol id="arrow-right" viewBox="0 0 1792 1792"><path d="M1600 960q0 54-37 91l-651 651q-39 37-91 37-51 0-90-37l-75-75q-38-38-38-91t38-91l293-293H245q-52 0-84.5-37.5T128 1024V896q0-53 32.5-90.5T245 768h704L656 474q-38-36-38-90t38-90l75-75q38-38 90-38 53 0 91 38l651 651q37 35 37 90z" /></symbol>

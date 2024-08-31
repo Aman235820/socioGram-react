@@ -77,8 +77,12 @@
     justify-content: space-between;
     flex-direction: column;
   }
+  .comment p{
+    text-align: left;
+  }
   .comment p:last-child{
     margin: 0 !important;
+
   }
   .comment img{
     position: relative;

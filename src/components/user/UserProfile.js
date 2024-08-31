@@ -195,24 +195,24 @@ function UserProfile() {
       }
 
       <div className="col-9">
-        <div className="timeline p-4">
-          <img src={`https://cloud.appwrite.io/v1/avatars/initials?name=${profile.name}&amp;project=65c8d4500c7cf523e70d`} alt="profilePic" className="img-fluid rounded-circle" style={{ width: '9rem', height: '9rem' }} />
-          <br />
+        <div className="timeline user-profile py-2">
           {
-            loader && <div>
-              <h3 className='text-white'>Loading...</h3>
+            loader && <div className='profile-loader offset-3'>
+              {/* <h3 className='text-white'>Loading...</h3> */}
+              <img src='loader.gif' width={40} height={40} alt = "Loading..."/>
             </div>
           }
           {
             !loader &&
             <div className="d-flex m-3 profile-inner">
-              <div className='profile-detail'>
+              <div className='profile-detail profile-content'>
+              <img src={`https://cloud.appwrite.io/v1/avatars/initials?name=${profile.name}&amp;project=65c8d4500c7cf523e70d`} alt="profilePic" className="img-fluid rounded-circle" style={{ width: '9rem', height: '9rem' }} />
                 <h1 className="mb-1 base-medium text-white text-left">
-                  {profile.name} , {profile.age}
+                  {profile.name}, {profile.age}
+                  <small className="d-block small-regular text-white-50 bg-dark text-left">
+                    @{profile.email}
+                  </small>
                 </h1>
-                <p className="small-regular text-white-50 bg-dark text-left">
-                  @{profile.email}
-                </p>
               </div>
               <div className='edit-btn'>
                 {writeAccess && <button className='text-white border-0' onClick={toggle}><img src='edit.svg' className='px-2' alt='edit' />Edit Profile</button>}
@@ -268,7 +268,7 @@ function UserProfile() {
             </PaginationItem>
           </Pagination>}
           {
-            posts?.length === 0 && (loading ? (<p className='text-white'>{`Loading Posts...`}</p>) : (<p className='text-white'>{`Oops , Nothing to see :(`}</p>))
+            posts?.length === 0 && (loading ? (<h2 className='text-white mt-5 text-center pt-5'>{`Loading Posts...`}</h2>) : (<p className='text-white'>{`Oops , Nothing to see :(`}</p>))
           }
         </div>
 

@@ -2,13 +2,20 @@
     display: flex;
     flex-direction: row;
     gap: 1px;
+    justify-content: center;
+    align-items: center;
+  }
+  .timeline.loader{
+    height: 100vh;
+    margin-left: -25%;
   }
   
   .timeline_left {
-    flex: 0.95;
-    padding: 10px;
+    flex: 1;
+    padding: 0px;
     background-color: #f4f4f9;
     border-radius: 10px;
+    text-align: center;
   }
   
   .timeline_right {
@@ -24,6 +31,10 @@
     gap: 5px;
   }
   
+  .timeline img.loading{
+    width: 50px;
+  }
+
   .post {
     display: flex;
     flex-direction: column;

@@ -253,3 +253,14 @@ p {
 .col-form-label{
     white-space: nowrap;
 }
+
+.login-page.register .login.form{
+    max-width: 450px;
+    width: 100%;
+    margin: auto;
+}
+.login-page.register .form__field label{
+   width: 147px;
+   padding: 1rem 12px;
+   white-space: nowrap;
+}
