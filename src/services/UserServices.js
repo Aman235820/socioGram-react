@@ -1,7 +1,13 @@
 import axios from "axios";
 
 const appUrl = process.env.REACT_APP_API_BASEURL;
-const baseurl = `${appUrl}/socialMedia/user`;
+let baseurl = `${appUrl}/socialMedia/user`;
+
+const isProd = process.env.REACT_APP_IS_PROD;
+
+if(isProd){
+     baseurl = "/socialMedia/user"
+}
 
 const GetUserById = async ({id , token}) => {
     const endpoint = `${baseurl}/getUserById/${id}`;

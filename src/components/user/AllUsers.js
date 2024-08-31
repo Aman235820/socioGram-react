@@ -47,7 +47,7 @@ const AllUsers = () => {
 
               {
                 isLoading ?
-                  (<p>Loading...</p>) : (
+                  (<p className='loading'><img src='loader.gif' width={70} height={70} alt = "Loading..."/></p>) : (
                     allUsers.length > 0 ? allUsers.map((item, index) => {
                       return (
                         <div className="col-md-4 col-sm-6 mb-4" key={index}>
