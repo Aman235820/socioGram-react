@@ -9,6 +9,8 @@ if(isProd){
      baseurl = "/socialMedia/user"
 }
 
+console.log(isProd);
+
 const GetUserById = async ({id , token}) => {
     const endpoint = `${baseurl}/getUserById/${id}`;
     return await axios.get(endpoint, {
