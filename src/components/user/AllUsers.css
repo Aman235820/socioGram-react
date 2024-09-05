@@ -15,3 +15,15 @@
     border: none;
     color: #fff;
   }
+
+  .user-loading{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 75vh;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -8%;
+  }

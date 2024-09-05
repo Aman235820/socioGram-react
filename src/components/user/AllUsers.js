@@ -33,21 +33,21 @@ const AllUsers = () => {
   }
 
   return (
-    <div className="user-inner bg-dark">
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-3'>
-            <Sidenav />
-          </div>
-          <div className='col-9'>
-            <div className="user-details mt-4 pt-2">
-              <h3 className="font-weight-bold text-left mb-3">All Users</h3>
-            </div>
+    <div className="user-inner">
+      <div className='row'>
+        <div className='col-3'>
+          <Sidenav />
+        </div>
+        <div className='col-9'>
+          <div className='container-fluid'>
+            {!isLoading &&<div className="user-details mt-5 pt-2">
+              <h3 className="font-weight-bold text-center text-white mb-3">All Users</h3>
+            </div>}
             <div className="row">
 
               {
                 isLoading ?
-                  (<p className='loading'><img src='loader.gif' width={70} height={70} alt = "Loading..."/></p>) : (
+                  (<p className='user-loading'><img src='loader.gif' width={70} height={70} alt = "Loading..."/></p>) : (
                     allUsers.length > 0 ? allUsers.map((item, index) => {
                       return (
                         <div className="col-md-4 col-sm-6 mb-4" key={index}>

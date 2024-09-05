@@ -197,7 +197,7 @@ function UserProfile() {
       <div className="col-9">
         <div className="timeline user-profile py-2">
           {
-            loader && <div className='profile-loader offset-3'>
+            loader && <div className='profile-loader offset-3 mt-5'>
               {/* <h3 className='text-white'>Loading...</h3> */}
               <img src='loader.gif' width={40} height={40} alt = "Loading..."/>
             </div>

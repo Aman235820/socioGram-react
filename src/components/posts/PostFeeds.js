@@ -54,8 +54,8 @@ function PostFeeds() {
                    hasMore = {data ? !data.data.lastPage : false} 
                    loader={<h4>Loading...</h4>}
                    endMessage={
-                    <p style={{ textAlign: 'center' }}>
-                      <b>Yay! You have seen all the posts !!</b>
+                    <p className="fw-bold text-left d-flex offset-2">
+                      Yay! You have seen all the posts !!
                     </p>
                   }
               >
