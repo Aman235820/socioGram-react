@@ -20,7 +20,7 @@ export default function Login() {
     const [resetPass, setResetPass] = useState('');
 
     const [loginDetails, setLoginDetails] = useState({
-        username: "aman@gmail",
+        username: "aman@gmail.com",
         password: "123"
     });
 
@@ -93,7 +93,7 @@ export default function Login() {
 
                         <div className="form__field">
                             <label htmlFor="login__username"><svg className="icon"><use href="#user"></use></svg><span className="hidden">Username</span></label>
-                            <input id="login__username" type="email" defaultValue={"aman@gmail"} onChange={handleUsername} name="username" className="form__input" placeholder="Username" required />
+                            <input id="login__username" type="email" defaultValue={"aman@gmail.com"} onChange={handleUsername} name="username" className="form__input" placeholder="Username" required />
                         </div>
 
                         <div className="form__field">

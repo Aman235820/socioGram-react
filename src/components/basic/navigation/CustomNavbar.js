@@ -1,4 +1,4 @@
-import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
+import { NavLink as ReactLink, useNavigate , Link } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import AuthContext from  "../../../guards/AuthProvider";
@@ -57,7 +57,7 @@ export default function CustomNavbar(props) {
                     mb-4
                     >
 
-                    <NavbarBrand tag={ReactLink} to="/">socioGram</NavbarBrand>
+                    <NavbarBrand tag={ReactLink} to="/register">socioGram</NavbarBrand>
                     <NavbarToggler onClick={toggle} />
 
                     { !isFormPage && <Collapse isOpen={isOpen} navbar>
@@ -68,8 +68,8 @@ export default function CustomNavbar(props) {
                                     {user.name}
                                 </DropdownToggle>
                                 <DropdownMenu end>
-                                    <DropdownItem>Services</DropdownItem>
-                                    <DropdownItem>Github</DropdownItem>
+                                    <DropdownItem><Link to="https://my-ecommerce-ochre.vercel.app/" target='_blank'>Services</Link></DropdownItem>
+                                    <DropdownItem><Link to="https://github.com/Aman235820/" target='_blank'>Github</Link></DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem  onClick={handleLogout}>Logout</DropdownItem>
                                 </DropdownMenu>

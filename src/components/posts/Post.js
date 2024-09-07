@@ -98,8 +98,9 @@ export default function Post(props) {
     const confirm = window.confirm("Are you sure you want to delete this post ?");
     const token = user.token;
     if (confirm) {
+      console.log("confirm")
       const response = await DeletePost({ token, postId });
-      if (response.hasError) {
+      if (response?.hasError) {
         toast.error(response.message);
       }
       else {

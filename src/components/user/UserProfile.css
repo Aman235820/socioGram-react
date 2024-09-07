@@ -32,17 +32,42 @@
 
 }  
 
+.edit-btn{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: inherit;
+  justify-content: flex-end;
+}
+
 .edit-btn button{
-  background: transparent;
-  border-radius: 0;
+  /* background: #FF5733; */
+  border-radius: 8px;
   outline: none !important;
   box-shadow: none !important;
+  padding: 5px 10px 8px;
+  text-align: left;
 }
 
 .edit-btn img{
-  width: 36px
+  width: 36px;
+  filter: brightness(0) invert(1);
+  vertical-align: bottom;
 }
 ul.pagination{
   margin-left: 25%;
   margin-bottom: 2rem;
+}
+
+.user-loading.h-50{
+  height: 50vh !important;
+}
+
+.delet-user-list img{
+  display: block;
+  float: right;
+}
+
+.modal-body.p-0 .list-group-flush>.list-group-item:last-child:before{
+  border: 0 !important;
 }

@@ -2,7 +2,6 @@
   "name": "sociogram",
   "version": "0.1.0",
   "private": true,
-  "proxy" : "https://sociogram-o3a4.onrender.com",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
     "@tanstack/react-query": "^5.40.0",

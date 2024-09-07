@@ -72,6 +72,7 @@ const GetPostsByUser = async ({ queryKey }) => {
 
 const DeletePost = async ({ token, postId }) => {
      const endpoint = `${baseurl}/removePost/${postId}`;
+     console.log(endpoint);
      return axios.delete(endpoint, {
           headers: {
                'Authorization': `Bearer ${token}`
