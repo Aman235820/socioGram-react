@@ -65,11 +65,11 @@ export default function CustomNavbar(props) {
                         <Nav className="me-auto" navbar>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    {user.name}
+                                    {user.name}   {user?.role[0]?.authority === 'ADMIN_USER' ? `  (Admin)` : `  (User)`}
                                 </DropdownToggle>
                                 <DropdownMenu end>
-                                    <DropdownItem><Link to="https://my-ecommerce-ochre.vercel.app/" target='_blank'>Services</Link></DropdownItem>
-                                    <DropdownItem><Link to="https://github.com/Aman235820/" target='_blank'>Github</Link></DropdownItem>
+                                    <DropdownItem><Link to="https://my-ecommerce-ochre.vercel.app/" target='_blank'  className="no-style-link">Services</Link></DropdownItem>
+                                    <DropdownItem><Link to="https://github.com/Aman235820/" target='_blank'  className="no-style-link">Github</Link></DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem  onClick={handleLogout}>Logout</DropdownItem>
                                 </DropdownMenu>

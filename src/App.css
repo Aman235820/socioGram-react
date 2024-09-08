@@ -254,6 +254,16 @@ p {
     white-space: nowrap;
 }
 
+.no-style-link:hover {
+    text-decoration: none;
+    color: inherit; /* Ensure hover state doesn't change color */
+  }
+
+.no-style-link {
+    text-decoration: none;
+    color: inherit; /* or specify a color like color: black; */
+  }
+
 .login-page.register .login.form{
     max-width: 450px;
     width: 100%;
